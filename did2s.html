@@ -1,0 +1,3179 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { color: #00769e; background-color: #f1f3f5; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #00769e; } /* Normal */
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #657422; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #00769e; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #00769e; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #00769e; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+<style>
+  div.csl-bib-body { }
+  div.csl-entry {
+    clear: both;
+    }
+  .hanging div.csl-entry {
+    margin-left:2em;
+    text-indent:-2em;
+  }
+  div.csl-left-margin {
+    min-width:2em;
+    float:left;
+  }
+  div.csl-right-inline {
+    margin-left:2em;
+    padding-left:1em;
+  }
+  div.csl-indent {
+    margin-left: 2em;
+  }
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>did2s: Two-Stage Difference-in-Differences</title>
+
+  <meta property="description" itemprop="description" content="Recent work has highlighted the difficulties of estimating difference-in-differences models when the treatment is adopted at different times for different units. This article introduces the R package did2s which implements the estimator introduced in @Gardner_2021. The article provides an approachable review of the underlying econometric theory and introduces the syntax for the function `did2s`. Further, the package introduces functions, event_study and plot_event_study, which uses a common syntax to implement all of the modern event-study estimators."/>
+
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-11-19"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-11-19"/>
+  <meta name="article:author" content="Kyle Butts"/>
+  <meta name="article:author" content="John Gardner"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="did2s: Two-Stage Difference-in-Differences"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Recent work has highlighted the difficulties of estimating difference-in-differences models when the treatment is adopted at different times for different units. This article introduces the R package did2s which implements the estimator introduced in @Gardner_2021. The article provides an approachable review of the underlying econometric theory and introduces the syntax for the function `did2s`. Further, the package introduces functions, event_study and plot_event_study, which uses a common syntax to implement all of the modern event-study estimators."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="did2s: Two-Stage Difference-in-Differences"/>
+  <meta property="twitter:description" content="Recent work has highlighted the difficulties of estimating difference-in-differences models when the treatment is adopted at different times for different units. This article introduces the R package did2s which implements the estimator introduced in @Gardner_2021. The article provides an approachable review of the underlying econometric theory and introduces the syntax for the function `did2s`. Further, the package introduces functions, event_study and plot_event_study, which uses a common syntax to implement all of the modern event-study estimators."/>
+
+  <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+  <meta name="citation_title" content="did2s: Two-Stage Difference-in-Differences"/>
+  <meta name="citation_fulltext_html_url" content="https://doi.org/10.32614/did2s"/>
+  <meta name="citation_pdf_url" content="did2s.pdf"/>
+  <meta name="citation_doi" content="10.32614/did2s"/>
+  <meta name="citation_journal_title" content="The R Journal"/>
+  <meta name="citation_issn" content="2073-4859"/>
+  <meta name="citation_firstpage" content="1"/>
+  <meta name="citation_fulltext_world_readable" content=""/>
+  <meta name="citation_online_date" content="2022/11/19"/>
+  <meta name="citation_publication_date" content="2022/11/19"/>
+  <meta name="citation_author" content="Kyle Butts"/>
+  <meta name="citation_author_institution" content="University of Colorado Boulder"/>
+  <meta name="citation_author" content="John Gardner"/>
+  <meta name="citation_author_institution" content="University of Mississippi"/>
+  <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Efficient estimation of maximum likelihood models with multiple fixed-effects: The R package FENmlm;citation_publication_date=2018;citation_author=Laurent Bergé"/>
+  <meta name="citation_reference" content="citation_title=Revisiting event study designs: Robust and efficient estimation;citation_publication_date=2021;citation_author=Kirill Borusyak;citation_author=Xavier Jaravel;citation_author=Jann Spiess"/>
+  <meta name="citation_reference" content="citation_title=Broom: Convert statistical objects into tidy tibbles;citation_publication_date=2021;citation_author=David Robinson;citation_author=Alex Hayes;citation_author=Simon Couch"/>
+  <meta name="citation_reference" content="citation_title=Difference in differences with time-varying covariates;citation_publication_date=2022;citation_author=Carolina Caetano;citation_author=Brantly Callaway;citation_author=Stroud Payne;citation_author=Hugo Sant’Anna Rodrigues"/>
+  <meta name="citation_reference" content="citation_title=Difference-in-differences with multiple time periods;citation_publication_date=2020;citation_doi=https://doi.org/10.1016/j.jeconom.2020.12.001;citation_issn=0304-4076;citation_author=Brantly Callaway;citation_author=Pedro H. C. Sant’Anna"/>
+  <meta name="citation_reference" content="citation_title=ggplot2: Elegant graphics for data analysis;citation_publication_date=2016;citation_publisher=Springer-Verlag New York;citation_author=Hadley Wickham"/>
+  <meta name="citation_reference" content="citation_title=Two-way fixed effects estimators with heterogeneous treatment effects;citation_publication_date=2019;citation_publisher=National Bureau of Economic Research;citation_doi=10.3386/w25904;citation_author=Clément Chaisemartin;citation_author=Xavier D’Haultfoeuille"/>
+  <meta name="citation_reference" content="citation_title=Did: Difference in differences;citation_publication_date=2021;citation_author=Brantly Callaway;citation_author=Pedro H. C. Sant’Anna"/>
+  <meta name="citation_reference" content="citation_title=Didimputation: Difference-in-differences estimator from borusyak, jaravel, and spiess (2021);citation_publication_date=2021;citation_author=Kyle Butts"/>
+  <meta name="citation_reference" content="citation_title=Partial time regressions as compared with individual trends;citation_publication_date=1933;citation_publisher=[Wiley, Econometric Society];citation_volume=1;citation_issn=00129682, 14680262;citation_author=Ragnar Frisch;citation_author=Frederick V. Waugh"/>
+  <meta name="citation_reference" content="citation_title=Two-stage differences in differences;citation_publication_date=2022;citation_publisher=arXiv;citation_doi=10.48550/ARXIV.2207.05943;citation_author=John Gardner"/>
+  <meta name="citation_reference" content="citation_title=Difference-in-differences with variation in treatment timing;citation_publication_date=2018;citation_publisher=National Bureau of Economic Research;citation_doi=10.3386/w25018;citation_author=Andrew Goodman-Bacon"/>
+  <meta name="citation_reference" content="citation_title=Large sample estimation and hypothesis testing;citation_publication_date=1986;citation_publisher=Elsevier;citation_volume=4;citation_author=Whitney Newey;citation_author=Daniel McFadden"/>
+  <meta name="citation_reference" content="citation_title=Staggered: Efficient estimation under staggered treatment timing;citation_publication_date=2021;citation_author=Jonathan Roth;citation_author=Pedro H. C. Sant’Anna"/>
+  <meta name="citation_reference" content="citation_title=Estimating dynamic treatment effects in event studies with heterogeneous treatment effects;citation_publication_date=2020;citation_doi=10.1016/j.jeconom.2020.09.006;citation_issn=0304-4076;citation_author=Liyang Sun;citation_author=Sarah Abraham"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","bibliography","header-includes","output","journal","slug","pdf_url","citation_url","doi","creative_commons","date","packages","CTV","csl"]}},"value":[{"type":"character","attributes":{},"value":["did2s: Two-Stage Difference-in-Differences"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation","url","orcid_id","email"]}},"value":[{"type":"character","attributes":{},"value":["Kyle Butts"]},{"type":"character","attributes":{},"value":["University of Colorado Boulder"]},{"type":"character","attributes":{},"value":["https://www.kylebutts.com/"]},{"type":"character","attributes":{},"value":["0000-0002-9048-8059"]},{"type":"character","attributes":{},"value":["buttskyle96@gmail.com"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation","url","email"]}},"value":[{"type":"character","attributes":{},"value":["John Gardner"]},{"type":"character","attributes":{},"value":["University of Mississippi"]},{"type":"character","attributes":{},"value":["https://jrgcmu.github.io/"]},{"type":"character","attributes":{},"value":["jrgardne@olemiss.edu"]}]}]},{"type":"character","attributes":{},"value":["Recent work has highlighted the difficulties of estimating difference-in-differences models when the treatment is adopted at different times for different units. This article introduces the R package did2s which implements the estimator introduced in @Gardner_2021. The article provides an approachable review of the underlying econometric theory and introduces the syntax for the function `did2s`. Further, the package introduces functions, event_study and plot_event_study, which uses a common syntax to implement all of the modern event-study estimators.\n"]},{"type":"character","attributes":{},"value":["did2s.bib"]},{"type":"character","attributes":{},"value":["\\usepackage{threeparttable}","\\usepackage{booktabs}","\\usepackage{longtable}","\\usepackage{adjustbox}","\\usepackage{lscape}","\\usepackage{enumitem}","\\usepackage{array}","\\newcolumntype{L}[1]{>{\\raggedright\\let\\newline\\\\\\arraybackslash\\hspace{0pt}}p{#1}}"]},{"type":"character","attributes":{},"value":["rjtools::rjournal_web_article","rjtools::rjournal_pdf_article"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","issn","firstpage","lastpage"]}},"value":[{"type":"character","attributes":{},"value":["The R Journal"]},{"type":"character","attributes":{},"value":["2073-4859"]},{"type":"double","attributes":{},"value":[1]},{"type":"NULL"}]},{"type":"character","attributes":{},"value":["did2s"]},{"type":"character","attributes":{},"value":["did2s.pdf"]},{"type":"character","attributes":{},"value":["https://doi.org/10.32614/did2s"]},{"type":"character","attributes":{},"value":["10.32614/did2s"]},{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["2022-11-19"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["cran","bioc"]}},"value":[{"type":"character","attributes":{},"value":["did2s","fixest","didimputation","did","staggered"]},{"type":"list","attributes":{},"value":[]}]},{"type":"character","attributes":{},"value":["CausalInference","Econometrics"]},{"type":"character","attributes":{},"value":["/Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/rjtools/rjournal.csl"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["auxiliary/RJwrapper.aux","auxiliary/RJwrapper.brf","auxiliary/RJwrapper.fdb_latexmk","auxiliary/RJwrapper.fls","auxiliary/RJwrapper.log","auxiliary/RJwrapper.out","auxiliary/RJwrapper.pdf","auxiliary/RJwrapper.synctex.gz","did2s_files/anchor-4.2.2/anchor.min.js","did2s_files/bowser-1.9.3/bowser.min.js","did2s_files/distill-2.2.21/template.v2.js","did2s_files/figure-html5/dynamic-1.png","did2s_files/figure-html5/dynamic-w-twfe-1.png","did2s_files/figure-html5/es-alternatives-1.png","did2s_files/figure-html5/ex-data-1.png","did2s_files/figure-latex/dynamic-1.pdf","did2s_files/figure-latex/dynamic-w-twfe-1.pdf","did2s_files/figure-latex/es-alternatives-1.pdf","did2s_files/figure-latex/ex-data-1.pdf","did2s_files/header-attrs-2.14.3/header-attrs.js","did2s_files/jquery-3.6.0/jquery-3.6.0.js","did2s_files/jquery-3.6.0/jquery-3.6.0.min.js","did2s_files/jquery-3.6.0/jquery-3.6.0.min.map","did2s_files/popper-2.6.0/popper.min.js","did2s_files/tippy-6.2.7/tippy-bundle.umd.min.js","did2s_files/tippy-6.2.7/tippy-light-border.css","did2s_files/tippy-6.2.7/tippy.css","did2s_files/tippy-6.2.7/tippy.umd.min.js","did2s_files/webcomponents-2.0.0/webcomponents.js","did2s.bib","did2s.pdf","did2s.tex","did2s.zip","Icon\r","initial_checks.log","review/R Journal Referee Responses.pdf","RJournal.sty","RJwrapper.bbl","RJwrapper.log","RJwrapper.tex"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="did2s_files/header-attrs-2.14.3/header-attrs.js"></script>
+  <script src="did2s_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="did2s_files/popper-2.6.0/popper.min.js"></script>
+  <link href="did2s_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="did2s_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="did2s_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="did2s_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="did2s_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="did2s_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="did2s_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+  <script>
+    $(function() {
+      console.log("Starting...")
+
+      // Always show Published - distill hides it if not set
+      function show_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'visible');
+      }
+
+      show_byline_column('Published')
+
+      // tweak function
+      var rmd_meta = JSON.parse($("#radix-rmarkdown-metadata").html());
+      function get_meta(name, meta) {
+        var ind = meta.attributes.names.value.findIndex((e) => e == name)
+        var val = meta.value[ind]
+        if (val.type != 'list') {
+          return val.value.toString()
+        }
+        return val
+      }
+
+      // tweak description
+      // Add clickable tags
+      const slug = get_meta('slug', rmd_meta)
+      const doi = get_meta('doi', rmd_meta)
+
+      var title = $("d-title").text
+
+      const buttons = $('<div class="dt-tags" style="grid-column: page;">')
+      buttons.append('<a href="#citation" class="dt-tag"><i class="fas fa-quote-left"></i> Cite</a>')
+      buttons.append('<a href="' + slug + '.pdf" class="dt-tag"><i class="fas fa-file-pdf"></i> PDF</a>')
+      buttons.append('<a href="https://twitter.com/intent/tweet?text='+title+'&url=https%3A%2F%2Fdoi.org%2F' + doi + '" class="dt-tag"><i class="fab fa-twitter"></i> Tweet</a>')
+
+      const abstract = $('<d-abstract>')
+      abstract.append('<b>Abstract:</b><br>')
+      abstract.append($("d-title p:not(:empty)").first()) // Move description to d-abstract
+      $("d-title p:empty").remove() // Remove empty paragraphs after title
+      abstract.append(buttons)
+      abstract.insertAfter($('d-title')) // Add abstract section after title
+
+      // tweak by-line
+      var byline = $("d-byline div.byline")
+      ind = rmd_meta.attributes.names.value.findIndex((e) => e == "journal")
+      const journal = get_meta('journal', rmd_meta)
+      const volume = get_meta('volume', rmd_meta)
+      const issue = get_meta('issue', rmd_meta)
+      const year = 2008 + parseInt(volume)
+      const jrtitle = get_meta('title', journal)
+      const firstpage = get_meta('firstpage', journal)
+      const lastpage = get_meta('lastpage', journal)
+      byline.append('<div class="rjournal grid">')
+      $('div.rjournal').append('<h3>Volume</h3>')
+      $('div.rjournal').append('<h3>Pages</h3>')
+      $('div.rjournal').append('<a class="volume" href="../../issues/'+year+'-'+issue+'">'+volume+'/'+issue+'</a>')
+      $('div.rjournal').append('<p class="pages">'+firstpage+' - '+lastpage+'</p>')
+
+      const received_date = new Date(get_meta('date_received', rmd_meta))
+      byline.find('h3:contains("Published")').parent().append('<h3>Received</h3><p>'+received_date.toLocaleDateString('en-US', {month: 'short'})+' '+received_date.getDate()+', '+received_date.getFullYear()+'</p>')
+
+    })
+  </script>
+
+  <style>
+      /*
+    .nav-dropdown-content .nav-dropdown-header {
+      text-transform: lowercase;
+    }
+    */
+
+    d-byline .byline {
+      grid-template-columns: 2fr 2fr 2fr 2fr;
+    }
+
+    d-byline .rjournal {
+      grid-column-end: span 2;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 0;
+    }
+
+    d-title h1, d-title p, d-title figure,
+    d-abstract p, d-abstract b {
+      grid-column: page;
+    }
+
+    d-title .dt-tags {
+      grid-column: page;
+    }
+
+    .dt-tags .dt-tag {
+      text-transform: lowercase;
+    }
+
+    d-article h1 {
+      line-height: 1.1em;
+    }
+
+    d-abstract p, d-article p {
+      text-align: justify;
+    }
+
+    @media(min-width: 1000px) {
+      .d-contents.d-contents-float {
+        justify-self: end;
+      }
+
+      nav.toc {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .posts-list .dt-tags .dt-tag {
+      text-transform: lowercase;
+    }
+
+    @keyframes highlight-target {
+      0% {
+        background-color: #ffa;
+      }
+      66% {
+        background-color: #ffa;
+      }
+      100% {
+        background-color: none;
+      }
+    }
+
+    d-article :target, d-appendix :target {
+       animation: highlight-target 3s;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"did2s: Two-Stage Difference-in-Differences","description":"Recent work has highlighted the difficulties of estimating difference-in-differences models when the treatment is adopted at different times for different units. This article introduces the R package did2s which implements the estimator introduced in @Gardner_2021. The article provides an approachable review of the underlying econometric theory and introduces the syntax for the function `did2s`. Further, the package introduces functions, event_study and plot_event_study, which uses a common syntax to implement all of the modern event-study estimators.","doi":"10.32614/did2s","authors":[{"author":"Kyle Butts","authorURL":"https://www.kylebutts.com/","affiliation":"University of Colorado Boulder","affiliationURL":"#","orcidID":"0000-0002-9048-8059"},{"author":"John Gardner","authorURL":"https://jrgcmu.github.io/","affiliation":"University of Mississippi","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-11-19T00:00:00.000-07:00","citationText":"Butts & Gardner, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>did2s: Two-Stage Difference-in-Differences</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>Recent work has highlighted the difficulties of estimating
+difference-in-differences models when the treatment is adopted at
+different times for different units. This article introduces the R
+package did2s which implements the estimator introduced in <span
+class="citation" data-cites="Gardner_2021">Gardner (<a
+href="#ref-Gardner_2021" role="doc-biblioref">2022</a>)</span>. The
+article provides an approachable review of the underlying econometric
+theory and introduces the syntax for the function <code>did2s</code>.
+Further, the package introduces functions, event_study and
+plot_event_study, which uses a common syntax to implement all of the
+modern event-study estimators.</p></p>
+</div>
+
+<div class="d-byline">
+  Kyle Butts <a href="https://www.kylebutts.com/"
+class="uri">https://www.kylebutts.com/</a> (University of Colorado
+Boulder)
+  
+,   John Gardner <a href="https://jrgcmu.github.io/"
+class="uri">https://jrgcmu.github.io/</a> (University of Mississippi)
+  
+<br/>2022-11-19
+</div>
+
+<div class="d-article">
+<h2 id="introduction">Introduction</h2>
+<p>A rapidly growing econometric literature has identified difficulties
+in traditional difference-in-differences estimation when treatment turns
+on at different times for different groups and when the effects of
+treatment vary across groups and over time <span class="citation"
+data-cites="Callaway_SantAnna_2020 Sun_Abraham_2020 Goodman-Bacon_2018 Borusyak_Jaravel_Spiess_2021 deChaisemartin_DHaultfoeuille_2019">(<a
+href="#ref-Goodman-Bacon_2018" role="doc-biblioref">Goodman-Bacon
+2018</a>; <a href="#ref-deChaisemartin_DHaultfoeuille_2019"
+role="doc-biblioref">Chaisemartin and D’Haultfoeuille 2019</a>; <a
+href="#ref-Callaway_SantAnna_2020" role="doc-biblioref">Callaway and
+Sant’Anna 2020</a>; <a href="#ref-Sun_Abraham_2020"
+role="doc-biblioref">Sun and Abraham 2020</a>; <a
+href="#ref-Borusyak_Jaravel_Spiess_2021" role="doc-biblioref">Borusyak
+et al. 2021</a>)</span>. <span class="citation"
+data-cites="Gardner_2021">Gardner (<a href="#ref-Gardner_2021"
+role="doc-biblioref">2022</a>)</span> proposes an estimator of the
+two-way fixed-effects model that is quick and intuitive. The estimator
+relies on the standard two-way fixed-effect model (see the following
+section) and forms an intuitive estimate: the average difference in
+outcomes between treated and untreated units after removing fixed unit-
+and time-invariant shocks.</p>
+<p>This article first discusses the modern difference-in-differences
+theory in an approachable way and second discusses the software package,
+<a href="https://cran.r-project.org/package=did2s">did2s</a>, which
+implements the two-stage estimation approach proposed by <span
+class="citation" data-cites="Gardner_2021">Gardner (<a
+href="#ref-Gardner_2021" role="doc-biblioref">2022</a>)</span> to
+estimate robustly the two-way fixed-effects (TWFE) model. There are two
+notable technical features of this package. First, <code>did2s</code>
+utilizes the incredibly fast package, <a
+href="https://cran.r-project.org/package=fixest">fixest</a> <span
+class="citation" data-cites="Berge_2018">(<a href="#ref-Berge_2018"
+role="doc-biblioref">Bergé 2018</a>)</span>, which can estimate
+regressions with a high number of fixed-effects very quickly. Second,
+since there are a few alternative TWFE event-study estimators
+implemented in <code>R</code>, each with their own syntax and data
+formatting requirements, the package also has a set of functions that
+allow quick estimation and plotting of every alternative event study
+estimator using a standardized syntax. This allows for easy comparison
+between the results of different methods.</p>
+<h2 id="difference-in-differences-theory">Difference-in-differences
+theory</h2>
+<p>Researchers commonly use the difference-in-differences (DiD)
+methodology to estimate the effects of treatment in the case where
+treatment is non-randomly assigned. Instead of random assignment giving
+rise to identification, the DiD method relies on the so-called “parallel
+trends” assumption, which asserts that outcomes would evolve in parallel
+between the treated and untreated groups <em>in a world where the
+treated were untreated</em>. This is formalized with the <em>two-way
+fixed-effects</em> (TWFE) model. In a static setting where treatment
+effects are <em>constant</em> across treatment groups and over time,
+researchers estimate the <strong>static TWFE model</strong>: <span
+class="math display">\[\begin{equation}\label{eq:twfe}
+  y_{igt} = \mu_g + \eta_t + \tau D_{gt} + \varepsilon_{igt},
+\end{equation}\]</span> where <span
+class="math inline">\(y_{igt}\)</span> is the outcome variable of
+interest, <span class="math inline">\(i\)</span> denotes the individual,
+<span class="math inline">\(t\)</span> denotes time, and <span
+class="math inline">\(g\)</span> denotes group membership where a
+“group” is defined as all units that start treatment at time <span
+class="math inline">\(g\)</span>.<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> <span
+class="math inline">\(\mu_g\)</span> is a vector of time-invariant group
+fixed-effects, <span class="math inline">\(\eta_t\)</span> is a vector
+of shocks in a given time period that is experienced by all individuals
+equally, and <span class="math inline">\(D_{gt}\)</span> is an indicator
+for whether initial-treatment group <span
+class="math inline">\(g\)</span> is receiving treatment in period <span
+class="math inline">\(t\)</span>, i.e. <span
+class="math inline">\(D_{gt} \equiv \mathbb{1}(g \leq t)\)</span>. The
+coefficient of interest is <span class="math inline">\(\tau\)</span>,
+which is the <strong>(<em>constant</em>) average effect of the treatment
+on the treated</strong> (ATT). If it is indeed true that the treatment
+effect is constant across groups and over time, then the estimate formed
+by estimating the static TWFE model will be consistent for <span
+class="math inline">\(\tau\)</span> under a parallel trends assumption
+on the error term.</p>
+<p>However, treatment effects are not constant in most settings. The
+magnitude of a unit’s treatment effect can differ based on group status
+<span class="math inline">\(g\)</span> (e.g. if groups that benefit more
+from a policy implement it earlier) and treatment duration (e.g. if
+treatment effects grow as the policy has been in place for longer
+periods). Therefore to enrich our model, we allow heterogeneity in
+treatment effects across <span class="math inline">\(g\)</span> and
+<span class="math inline">\(t\)</span> by introducing the
+<strong>group-time average treatment effect</strong>, <span
+class="math inline">\(\tau_{gt}\)</span>. Correspondingly, we modify the
+TWFE model as follows: <span class="math display">\[
+  y_{igt} = \mu_g + \eta_t + \tau_{gt} D_{gt} + \varepsilon_{igt}.
+\]</span> The key difference is that treatment effects are allowed to
+differ based on group status <span class="math inline">\(g\)</span> and
+time period <span class="math inline">\(t\)</span>. Estimating any
+individual <span class="math inline">\(\tau_{gt}\)</span> may not be
+desirable since there would be too few observations. Instead,
+researchers aggregate group-time average treatment effects into the
+<strong>overall average treatment effect</strong>, <span
+class="math inline">\(\tau\)</span>, which averages across <span
+class="math inline">\(\tau_{gt}\)</span>: <span class="math display">\[
+  \tau \equiv \sum_{g, t} \frac{N_{gt}}{N_{post}} \tau_{gt},
+\]</span> where <span class="math inline">\(N_{gt}\)</span> denotes the
+number of observations in <span class="math inline">\((g, t)\)</span>
+and <span class="math inline">\(N_{post}\)</span> is the number of
+post-treatment observations (<span class="math inline">\(t \geq
+g\)</span>). The natural question is, “does the static TWFE model,
+(<span class="math inline">\(\ref{eq:twfe}\)</span>), produce a
+consistent estimate for the overall average treatment effect?” Except
+for a few specific scenarios, the answer is no <span class="citation"
+data-cites="Sun_Abraham_2020 Goodman-Bacon_2018 Borusyak_Jaravel_Spiess_2021 deChaisemartin_DHaultfoeuille_2019">(<a
+href="#ref-Goodman-Bacon_2018" role="doc-biblioref">Goodman-Bacon
+2018</a>; <a href="#ref-deChaisemartin_DHaultfoeuille_2019"
+role="doc-biblioref">Chaisemartin and D’Haultfoeuille 2019</a>; <a
+href="#ref-Sun_Abraham_2020" role="doc-biblioref">Sun and Abraham
+2020</a>; <a href="#ref-Borusyak_Jaravel_Spiess_2021"
+role="doc-biblioref">Borusyak et al. 2021</a>)</span>.</p>
+<p>One way of thinking about this disappointing result is through the
+Frisch–Waugh–Lovell (FWL) theorem <span class="citation"
+data-cites="Frisch_Waugh_1933">(<a href="#ref-Frisch_Waugh_1933"
+role="doc-biblioref">Frisch and Waugh 1933</a>)</span>. This theorem
+says that estimating the Static TWFE model is equivalent to estimating
+<span class="math display">\[
+y_{igt} - \hat{\mu}_g - \hat{\eta}_t = \tau \tilde{D}_{gt} +
+\tilde{\varepsilon}_{gt},
+\]</span> where <span class="math inline">\(\tilde{D}_{gt}\)</span>
+denotes the residuals from regressing <span
+class="math inline">\(D_{gt}\)</span> on <span
+class="math inline">\(\mu_g\)</span> and <span
+class="math inline">\(\eta_t\)</span>; <span
+class="math inline">\(\hat{\mu}_g\)</span> and <span
+class="math inline">\(\hat{\eta}_t\)</span> are estimates for the group
+and time fixed-effects, respectively. The left-hand side of this
+equation, under a parallel trends restriction on the error term <span
+class="math inline">\(\varepsilon_{it}\)</span>, is our estimate for
+<span class="math inline">\(\tau_{gt}\)</span>. Therefore, the FWL
+theorem tells us estimating the static TWFE model is equivalent to
+estimating<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p><span class="math display">\[
+\hat{\tau}_{gt} = \tau \tilde{D}_{gt} + \tilde{\varepsilon}_{gt}
+\]</span></p>
+<p>The resulting estimate for <span class="math inline">\(\tau\)</span>
+can be written as: <span class="math display">\[
+\hat{\tau} \equiv \sum_{g,t} w_{gt} \hat{\tau}_{gt},
+\]</span> where <span class="math inline">\(w_{gt}\)</span> is the
+weight put on the corresponding <span
+class="math inline">\(\hat{\tau}_{gt}\)</span>. Results of <span
+class="citation" data-cites="Gardner_2021">Gardner (<a
+href="#ref-Gardner_2021" role="doc-biblioref">2022</a>)</span>, <span
+class="citation" data-cites="Borusyak_Jaravel_Spiess_2021">Borusyak et
+al. (<a href="#ref-Borusyak_Jaravel_Spiess_2021"
+role="doc-biblioref">2021</a>)</span>, and <span class="citation"
+data-cites="deChaisemartin_DHaultfoeuille_2019">Chaisemartin and
+D’Haultfoeuille (<a href="#ref-deChaisemartin_DHaultfoeuille_2019"
+role="doc-biblioref">2019</a>)</span> all characterize the weights <span
+class="math inline">\(w_{gt}\)</span> from this regression. There are
+only two cases where the <span class="math inline">\(\hat{\tau}\)</span>
+is a consistent estimate for the overall average treatment effect.
+First, when treatment occurs at the <em>same time</em> for all treated
+units, then <span class="math inline">\(w_{gt}\)</span> is equal to
+<span class="math inline">\(N_{gt}/N_{post}\)</span> for all <span
+class="math inline">\(\{g, t\}\)</span> and therefore <span
+class="math inline">\(\hat{\tau}\)</span> is a consistent estimate for
+the overall average treatment effect. The other scenario where <span
+class="math inline">\(\hat{\tau}\)</span> estimates the overall average
+treatment effect is when <span class="math inline">\(\tau_{gt}\)</span>
+is constant across group and time, i.e. <span
+class="math inline">\(\tau_{gt} = \tau\)</span>. Since the weights,
+<span class="math inline">\(w_{gt}\)</span>, always sum to one, we have
+that <span class="math inline">\(\hat{\tau} = \sum w_{gt}
+\hat{\tau}_{gt} \to \sum w_{gt} \tau = \tau\)</span>.</p>
+<p>The above cases are not the norm in research. If there is
+heterogeneity in group-time treatment effects <em>and</em> units get
+treated at different times, then <span
+class="math inline">\(\hat{\tau}\)</span> is not a consistent estimate
+for the average treatment effect <span
+class="math inline">\(\tau\)</span>. Instead, <span
+class="math inline">\(\hat{\tau}\)</span> will be a weighted average of
+group-time treatment effects with some weights, <span
+class="math inline">\(w_{gt}\)</span>, being potentially negative. This
+yields a treatment effect estimate that does not provide a good summary
+of the “average” treatment effect. It is even possible for the sign of
+<span class="math inline">\(\hat{\tau}\)</span> to differ from that of
+the overall average treatment effect. This would occur, for example, if
+negative weights are placed primarily on the largest (in magnitude)
+group-time treatment effects.</p>
+<p>To summarize the modern literature, the fundamental problem faced in
+estimating the TWFE model is the potential negative weighting. The
+proposed methodology in <span class="citation"
+data-cites="Gardner_2021">Gardner (<a href="#ref-Gardner_2021"
+role="doc-biblioref">2022</a>)</span> is based on the fact that if <span
+class="math inline">\(\hat{\tau}_{gt}\)</span> is regressed on <span
+class="math inline">\(D_{gt}\)</span>, instead of <span
+class="math inline">\(\tilde{D}_{gt}\)</span>, the resulting weights
+would be exactly equal to <span
+class="math inline">\(N_{gt}/N_{post}\)</span> and the coefficient of
+<span class="math inline">\(D_{gt}\)</span> would estimate the overall
+average treatment effect.</p>
+<h3 id="event-study-estimates">Event-study estimates</h3>
+<p>Researchers have attempted to model treatment effect heterogeneity by
+allowing treatment effects to change over time. To do this, they
+introduce a (dynamic) event-study TWFE model: <span
+class="math display">\[\begin{equation}
+  y_{igt} = \mu_g + \eta_t + \sum_{k = -L}^{-2} \tau^k D_{gt}^k +
+\sum_{k = 0}^{K} \tau^k D_{gt}^k + \varepsilon_{igt},
+\end{equation}\]</span> where <span
+class="math inline">\(D_{gt}^k\)</span> are lags/leads of treatment
+(<span class="math inline">\(k\)</span> periods from initial treatment
+date). The coefficients of interests are the <span
+class="math inline">\(\tau^k\)</span>, which represent the average
+effect of being treated for <span class="math inline">\(k\)</span>
+periods. For negative values of <span class="math inline">\(k\)</span>,
+<span class="math inline">\(\tau^k\)</span> are known as “pre-trends,”
+and represent the average deviation in outcomes for treated units <span
+class="math inline">\(k\)</span> periods away from treatment, relative
+to their value in the reference period. These pre-trend estimates are
+commonly used as a test of the parallel counterfactual trends
+assumption.</p>
+<p>Our goal is to estimate the <strong>average treatment effect of being
+exposed for <span class="math inline">\(k\)</span> periods</strong>, an
+average of <span class="math inline">\(\tau_{gt}\)</span> for only the
+set of <span class="math inline">\(\{g,t\}\)</span> where <span
+class="math inline">\(k\)</span> periods have elapsed since <span
+class="math inline">\(g\)</span>, i.e. <span class="math inline">\(t - g
+= k\)</span>: <span class="math display">\[
+  \tau^k = \sum_{g,t \ : \ t - g = k} \frac{N_{gt}^k}{N^k} \tau_{gt},
+\]</span> where the sum is over <span
+class="math inline">\(\{g,t\}\)</span> with <span
+class="math inline">\(t - g = k\)</span>, <span
+class="math inline">\(N_{gt}^k\)</span> is the number of observations in
+group <span class="math inline">\(g\)</span> and <span
+class="math inline">\(N^k\)</span> is the total number of observations
+with <span class="math inline">\(t - g = k\)</span>. The results of
+<span class="citation" data-cites="Sun_Abraham_2020">Sun and Abraham (<a
+href="#ref-Sun_Abraham_2020" role="doc-biblioref">2020</a>)</span> show
+that even though we allow for our average treatment effects to vary over
+time <span class="math inline">\(\tau^k\)</span>, the negative weighting
+problems would arise if units are treated at different times
+<em>and</em> there is group-heterogeneity in treatment effects. Similar
+to the static TWFE model, the estimates of <span
+class="math inline">\(\tau^k\)</span> from running the event-study model
+form non-intuitively weighted averages of <span
+class="math inline">\(\tau_{gt}\)</span> with <span
+class="math inline">\(w_{gt}^k \neq N_{gt}^k/N^k\)</span>. Even worse,
+the group-time treatment effects for <span class="math inline">\(t-g
+\neq k\)</span> will be included in the estimate of <span
+class="math inline">\(\hat{\tau}^k\)</span>. Hence, the need for a
+robust difference-in-differences estimator remains even in the
+event-study model.</p>
+<h3 id="two-stage-difference-in-differences-estimator">Two-stage
+difference-in-differences estimator</h3>
+<p><span class="citation" data-cites="Gardner_2021">Gardner (<a
+href="#ref-Gardner_2021" role="doc-biblioref">2022</a>)</span> proposes
+an estimator to resolve the problem with the two-way fixed-effects
+approaches. Rather than attempting to estimate the group and time
+effects simultaneously with the ATT (causing <span
+class="math inline">\(D_{it}\)</span> to be residualized), Gardner’s
+approach proceeds from the observation that, under parallel trends, the
+group and time effects are identified from the subsample of
+untreated/not-yet-treated observations (<span
+class="math inline">\(D_{gt} = 0\)</span>). This suggests a simple
+two-stage difference-in-differences estimator:</p>
+<ol type="1">
+<li><p>Estimate the model <span class="math display">\[
+y_{igt} = \mu_g + \eta_t + \varepsilon_{igt},
+\]</span> using the subsample of untreated/not-yet-treated observations
+(i.e., all observations for which <span
+class="math inline">\(D_{gt}=0\)</span>), retaining the estimated group
+and time effects to form the adjusted outcomes <span
+class="math inline">\(\tilde{y}_{igt} \equiv y_{igt} - \hat{\mu}_g -
+\hat{\eta}_t\)</span>.</p></li>
+<li><p>Regress adjusted outcomes <span
+class="math inline">\(\tilde{y}_{igt}\)</span> on treatment status <span
+class="math inline">\(D_{gt}\)</span> or <span
+class="math inline">\(D_{gt}^k\)</span> in the full sample to estimate
+treatment effects <span class="math inline">\(\tau\)</span> or <span
+class="math inline">\(\tau^k\)</span>.</p></li>
+</ol>
+<p>To see why this procedure works, note that parallel trends implies
+that outcomes can be expressed as <span
+class="math display">\[\begin{align*}
+  y_{igt} &amp;= \mu_g + \eta_t + \tau_{gt} D_{gt} + \varepsilon_{igt}
+\\
+  &amp;= \mu_g + \eta_t + \bar{\tau} D_{gt} + (\tau_{gt} - \bar{\tau})
+D_{gt} + \varepsilon_{igt},
+\end{align*}\]</span> where <span class="math inline">\(\tau_{gt} =
+E(Y^1_{igt} - Y^0_{igt} \ | \ g, t)\)</span> is the average treatment
+effect for group <span class="math inline">\(g\)</span> in period <span
+class="math inline">\(t\)</span><a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> and <span
+class="math inline">\(\bar{\tau} = E(\tau_{gt} | D_{gt}=1)\)</span> is
+the overall average treatment effect<a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a>. Note from parallel
+trends, <span class="math inline">\(E(\varepsilon_{igt} | D_{gt}, g, t)
+= 0\)</span>. Rearranging, this gives <span class="math display">\[
+  y_{igt} - \mu_g - \eta_t = \bar{\tau} D_{gt} + (\tau_{gt} -
+\bar{\tau}) D_{gt} + \varepsilon_{igt}.
+\]</span> Suppose you knew the time and group fixed-effects and were
+able to directly observe the left-hand side (later we will estimate the
+left-hand side). Regressing the adjusted <span
+class="math inline">\(y\)</span> variable, on <span
+class="math inline">\(D_{gt}\)</span> will produce a consistent
+estimator for <span class="math inline">\(\bar{\tau}\)</span>. To see
+this, note that <span class="math inline">\(E[(\tau_{gt} - \bar{\tau})
+D_{gt} \ | \ D_{gt}] = 0\)</span>. Hence, the treatment dummy is
+uncorrelated with the omitted variable and the average treatment effect
+is identified in the second-stage. Since we are not able to directly
+observe <span class="math inline">\(\mu_g\)</span> and <span
+class="math inline">\(\eta_t\)</span>, we estimate them using the
+untreated/not-yet-treated observations in the first-stage. However,
+standard errors need adjustment to account for the added uncertainty
+from the first-stage estimation.</p>
+<p>This approach can be extended to dynamic models by replacing the
+second stage of the procedure with a regression of residualized outcomes
+onto the leads and lags of treatment status, <span
+class="math inline">\(D_{gt}^k\)</span>, <span class="math inline">\(k
+\in \{-L, \dots, K\}\)</span>. Under parallel trends, the second-stage
+coefficients on the lags identify the overall average effect of being
+treated for <span class="math inline">\(k\)</span> periods (where the
+average is taken over all units treated for at least that many periods).
+The second-stage coefficients on the leads identify the average
+deviation from predicted counterfactual trends among units that are
+<span class="math inline">\(k\)</span> periods away from treatment,
+which under parallel trends should be zero for any pre-treatment value
+of <span class="math inline">\(k\)</span>. Hence, the coefficients on
+the leads represent a test of the validity of the parallel trends
+assumption.</p>
+<h3 id="inference">Inference</h3>
+<p>The standard variance-covariance matrix from the second-stage
+regression will be incorrect since it fails to account for the fact that
+the dependent variable is generated from the first-stage regression.
+However, this estimator takes the form of a joint generalized method of
+moments (GMM) estimator whose asymptotic variance is well understood
+<span class="citation" data-cites="newey_mcfadden_1994">(<a
+href="#ref-newey_mcfadden_1994" role="doc-biblioref">Newey and McFadden
+1986</a>)</span>.</p>
+<p>Specifically, the estimator takes the form of a two-stage GMM
+estimator with the following two moment conditions: <span
+class="math display">\[\begin{align}
+  m(\theta) = (Y-X_{10}&#39;\gamma)X_{10}, \\
+  g(\gamma, \theta) = (Y - X_1&#39;\gamma - X_2&#39;\theta) X_2,
+\end{align}\]</span> where <span class="math inline">\(X_1\)</span> is
+the matrix of group and time fixed-effects, <span
+class="math inline">\(X_{10}\)</span> corresponds to the matrix <span
+class="math inline">\(X_1\)</span>, but with rows corresponding to
+observations for which <span class="math inline">\(D_{gt} = 1\)</span>
+replaced with zeros (as only observations with <span
+class="math inline">\(D_{gt} = 0\)</span> are used in the first stage)
+and <span class="math inline">\(X_2\)</span> is the matrix of treatment
+variable(s). The first equation corresponds with the first stage and the
+second equation corresponds with the second stage. From Theorem 6.1 of
+<span class="citation" data-cites="newey_mcfadden_1994">Newey and
+McFadden (<a href="#ref-newey_mcfadden_1994"
+role="doc-biblioref">1986</a>)</span>, the asymptotic variance of the
+two-stage estimator is <span class="math display">\[\begin{equation}
+  V = G_\theta^{-1} E\left[ (g + G_\gamma \psi)(g + G_\gamma \psi)&#39;
+\right] G_\theta^{-1&#39;},
+\end{equation}\]</span> where from our moment conditions, we have: <span
+class="math display">\[
+  G_\theta = - E\left(X_2X_2&#39; \right),
+\]</span> <span class="math display">\[
+  G_\gamma = - E\left(X_2X_1&#39;\right),
+\]</span> <span class="math display">\[
+  \psi = E(X_{10}X_{10}&#39;)^{-1} \varepsilon_{10} X_{10}.
+\]</span></p>
+<p>This can be estimated using <span
+class="math display">\[\begin{equation}
+  \left(X_2&#39;X_2\right)^{-1} \left(\sum_{g=1}^G W_g&#39; W_g\right)
+\left(X_2&#39;X_2\right)^{-1},
+\end{equation}\]</span> where <span class="math display">\[
+  W_g = X_{2g}&#39;\hat{\varepsilon}_{2g} - \hat{\varepsilon}_{10g}&#39;
+X_{1g}\left(X_{1g}&#39;X_{1g}\right)^{-1}
+\left(X_{1g}&#39;X_{2g}\right),
+\]</span> and matrices indexed by <span class="math inline">\(g\)</span>
+correspond to the <span class="math inline">\(g\)</span>th cluster.</p>
+<h2 id="the-package">The <a
+href="https://cran.r-project.org/package=did2s">did2s</a> package</h2>
+<p>The <a href="https://cran.r-project.org/package=did2s">did2s</a>
+package introduces two sets of functions. The first is the
+<code>did2s</code> command which implements the two-stage
+difference-in-differences estimator as described above. The second is
+the <code>event_study</code> and <code>plot_event_study</code> commands
+that allow individuals to implement alternative ‘robust’ estimators
+using a singular common syntax.</p>
+<h3 id="the-did2s-command">The <code>did2s</code> command</h3>
+<p>The command <code>did2s</code> implements the two-stage
+difference-in-differences estimator following <span class="citation"
+data-cites="Gardner_2021">Gardner (<a href="#ref-Gardner_2021"
+role="doc-biblioref">2022</a>)</span>. The general syntax is</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/did2s/man/did2s.html'>did2s</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>yname</span>, <span class='va'>first_stage</span>, <span class='va'>second_stage</span>, </span>
+<span>      <span class='va'>treatment</span>, <span class='va'>cluster_var</span>, weights <span class='op'>=</span> <span class='cn'>NULL</span>, </span>
+<span>      bootstrap <span class='op'>=</span> <span class='cn'>FALSE</span>, n_bootstraps <span class='op'>=</span> <span class='fl'>250</span>, </span>
+<span>      verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>and full details on the arguments is available in the help page,
+available by running <code>?did2s</code>. There are a few arguments that
+are worth discussing in more detail.</p>
+<p>The <code>first_stage</code> and <code>second_stage</code> arguments
+require formula arguments. These formulas are passed to the
+<code>fixest::feols</code> function from <a
+href="https://cran.r-project.org/package=fixest">fixest</a> and can
+therefore utilize two non-standard formula options that are worth
+mentioning <span class="citation" data-cites="Berge_2018">(<a
+href="#ref-Berge_2018" role="doc-biblioref">Bergé 2018</a>)</span>.
+First, fixed-effects can be inserted after the covariates,
+e.g. <code>~ x1 | fe_1 + fe_2</code>, which will make estimation much
+faster than using <code>factor(fe_1)</code>. Second, the function
+<code>fixest::i</code> can be used for treatment indicators instead of
+<code>factor</code>. The advantage of this is that you can easily
+specify the reference values, e.g. for event-study indicators where
+researchers typically want to drop time <span class="math inline">\(t =
+-1\)</span>, <code>~ i(rel_year, ref = c(-1))</code> would be the
+correct second-stage formula. Additionally, <a
+href="https://cran.r-project.org/package=fixest">fixest</a> has a number
+of post-estimation exporting commands to make tables with
+<code>fixest::etable</code> and event-study plots with
+<code>fixest::iplot</code>/<code>fixest::coefplot</code>. The
+<code>fixest::i</code> function is better integrated with these
+functions as we will see below.</p>
+<p>The option <code>treatment</code> is the variable name of a <span
+class="math inline">\(0/1\)</span> variable that denotes when treatment
+is active for a given unit, <span class="math inline">\(D_{gt}\)</span>
+in the above notation. Observations with <span
+class="math inline">\(D_{gt} = 0\)</span> will be used to estimate the
+first stage, which removes the problem of treatment effects
+contaminating estimation of the unit and time fixed-effects. However, as
+an important note, if you suspect anticipation effects before treatment
+begins, the <code>treatment</code> variable should be shifted forward by
+<span class="math inline">\(x\)</span> periods for observations to
+prevent the aforementioned contamination. For example, if you suspect
+that units could experience treatment effects 1 period ahead of
+treatment (a so-called anticipatory effect), then the
+<code>treatment</code> should begin one period ahead. These anticipation
+effects can be estimated, after adjusting the <code>treatment</code>
+variable, by using a reference year of say, <span
+class="math inline">\(t = -2\)</span> and looking at the estimate for
+relative year <span class="math inline">\(-1\)</span>.</p>
+<h4 id="example-usage-of-did2s">Example usage of <code>did2s</code></h4>
+<p>For basic usage, I will use the simulated dataset,
+<code>df_het</code>, that comes with the <a
+href="https://cran.r-project.org/package=did2s">did2s</a> package with
+the command</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>df_het</span>, package <span class='op'>=</span> <span class='st'>"did2s"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>The data-generating process is displayed in Figure <a href="#fig:ex-data">1</a>.
+The lines represent the mean outcome for each treatment group and the
+never-treated group. In the absence of treatment, each group is
+simulated to be on parallel trends. There is heterogeneity in treatment
+effects both within a treatment group over time and across treatment
+groups.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span style="display:block;" id="fig:ex-data"></span>
+<img src="did2s_files/figure-html5/ex-data-1.png" alt="This figure contains 3 lines which represent three different groups: the never-treated units, units starting treatment in 2000, and units starting treatment in 2010. The x-axis is year and the y-axis is the average outcome value for the three groups. The lines evolve in parallel until 2000 when the treated in 2000 group experiences a jump. Then in 2010, the treated in 2010 group experiences a jump as well, but of a different size than then treated in 2000 group." width="100%" />
+<p class="caption">
+Figure 1: This figure plots simulated data with two treated groups
+and a never-treated group. Each line represents the average outcome
+(y-value) in a given year (x-value) for each of the three groups. In the
+absence of treatment, all three groups would exhibit parallel trends
+(staying around a value of 4 in each period). Each of the treated groups
+are experience different treatment effect magnitudes that grow over
+time. This treatment effect heterogeneity creates problems for the
+classical two-way fixed effect OLS estimator.
+</p>
+</div>
+</div>
+<p>First, we will calculate a static difference-in-differences estimate
+using the <code>did2s</code> function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>static</span> <span class='op'>=</span> <span class='fu'><a href='http://kylebutts.com/did2s/reference/did2s.html'>did2s</a></span><span class='op'>(</span></span>
+<span>  data <span class='op'>=</span> <span class='va'>df_het</span>, </span>
+<span>  yname <span class='op'>=</span> <span class='st'>"dep_var"</span>, </span>
+<span>  treatment <span class='op'>=</span> <span class='st'>"treat"</span>,</span>
+<span>    first_stage <span class='op'>=</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>|</span> <span class='va'>unit</span> <span class='op'>+</span> <span class='va'>year</span>, </span>
+<span>    second_stage <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/i.html'>i</a></span><span class='op'>(</span><span class='va'>treat</span>, ref <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,</span>
+<span>    cluster_var <span class='op'>=</span> <span class='st'>"unit"</span>, </span>
+<span>  verbose <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>static</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>OLS estimation, Dep. Var.: dep_var
+Observations: 46,500 
+Standard-errors: Custom 
+            Estimate Std. Error t value  Pr(&gt;|t|)    
+treat::TRUE  2.23048   0.021408  104.19 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+RMSE: 1.0357   Adj. R2: 0.505683</code></pre>
+</div>
+<p>Since the returning object is a <code>fixest</code> object, all the
+accompanying output commands from <a
+href="https://cran.r-project.org/package=fixest">fixest</a> are
+available to use. For example, we can create regression tables:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>fixest</span><span class='fu'>::</span><span class='fu'><a href='https://lrberge.github.io/fixest/reference/etable.html'>etable</a></span><span class='op'>(</span><span class='va'>static</span>, fitstat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span><span class='op'>)</span>,</span>
+<span>  title <span class='op'>=</span> <span class='st'>"Estimate of Static TWFE Model"</span>, </span>
+<span>  notes <span class='op'>=</span> <span class='st'>"This table presents the estimated overall treatment effect. The effect is estimated using Two-Stage Difference-in-Differences proposed by Gardner (2021). The estimated effect is close to the true value."</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>                           static
+Dependent Var.:           dep_var
+                                 
+treat = TRUE    2.230*** (0.0214)
+_______________ _________________
+S.E. type                  Custom
+Observations               46,500
+---
+Signif. codes: 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<p>However, since there are dynamic treatment effects in this example,
+it is much better to estimate the dynamic effects themselves using an
+event-study specification. We will then plot the results using
+<code>fixest::iplot</code>, which plots coefficients corresponding to an
+<code>i()</code> variable. Note that <code>rel_year</code> is coded as
+<code>Inf</code> for never-treated units, so this has to be noted in the
+reference part of the formula.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>es</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/did2s/man/did2s.html'>did2s</a></span><span class='op'>(</span></span>
+<span>  data <span class='op'>=</span> <span class='va'>df_het</span>, </span>
+<span>  yname <span class='op'>=</span> <span class='st'>"dep_var"</span>, </span>
+<span>  treatment <span class='op'>=</span> <span class='st'>"treat"</span>,</span>
+<span>  first_stage <span class='op'>=</span> <span class='op'>~</span> <span class='fl'>0</span> <span class='op'>|</span> <span class='va'>unit</span> <span class='op'>+</span> <span class='va'>year</span>, </span>
+<span>    second_stage <span class='op'>=</span> <span class='op'>~</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/i.html'>i</a></span><span class='op'>(</span><span class='va'>rel_year</span>, ref <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>    cluster_var <span class='op'>=</span> <span class='st'>"unit"</span>, </span>
+<span>  verbose <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>fixest</span><span class='fu'>::</span><span class='fu'><a href='https://lrberge.github.io/fixest/reference/coefplot.html'>iplot</a></span><span class='op'>(</span></span>
+<span>  <span class='va'>es</span>, </span>
+<span>  main <span class='op'>=</span> <span class='st'>"Event study: Staggered treatment"</span>, </span>
+<span>  xlab <span class='op'>=</span> <span class='st'>"Relative time to treatment"</span>, </span>
+<span>  col <span class='op'>=</span> <span class='st'>"steelblue"</span>, ref.line <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Add the (mean) true effects</span></span>
+<span><span class='va'>true_effects</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tapply.html'>tapply</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>df_het</span><span class='op'>$</span><span class='va'>te</span> <span class='op'>+</span> <span class='va'>df_het</span><span class='op'>$</span><span class='va'>te_dynamic</span><span class='op'>)</span>, <span class='va'>df_het</span><span class='op'>$</span><span class='va'>rel_year</span>, <span class='va'>mean</span><span class='op'>)</span></span>
+<span><span class='va'>true_effects</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>true_effects</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>20</span>, <span class='va'>true_effects</span>, pch <span class='op'>=</span> <span class='fl'>20</span>, col <span class='op'>=</span> <span class='st'>"grey60"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Legend</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>-</span><span class='fl'>20</span>, y<span class='op'>=</span><span class='fl'>3</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue"</span>, <span class='st'>"grey60"</span><span class='op'>)</span>, </span>
+<span>       pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>20</span><span class='op'>)</span>, </span>
+<span>       legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Two-stage estimate"</span>, <span class='st'>"True effect"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:dynamic"></span>
+<img src="did2s_files/figure-html5/dynamic-1.png" alt="This figure plots the true treatment effect and estimates using the Two-Stage Difference-in-Differences proposed by Gardner (2021). The x-axis of this figure is the relative time to treatment, i.e. how many years pre-/post- treatment that period is. The y-axis is estimated treatment effects. There are two sets of points. The first is for the true effect which is equal to 0 in all pre-periods and in the post-period starts at 1.5 and linearly grows to 3 by post-period 20. The second set of points is the estimates from the two-stage difference-in-difference estimates which follows closely the true effects but with additional noise from estimation error." width="100%" />
+<p class="caption">
+Figure 2: This figure plots the true treatment effect and estimates
+using the Two-Stage Difference-in-Differences proposed by Gardner
+(2021). The x-axis of this figure is the relative time to treatment,
+i.e. how many years pre-/post- treatment that period is. The y-axis is
+estimated treatment effects. There are two sets of points. The first is
+for the true effect which is equal to 0 in all pre-periods and in the
+post-period starts at 1.5 and linearly grows to 3 by post-period 20. The
+second set of points is the estimates from the two-stage
+difference-in-difference estimates which follows closely the true
+effects but with additional noise from estimation error.
+</p>
+</div>
+</div>
+<p>The event study estimates are found in Figure <a href="#fig:dynamic">2</a> and
+match closely to the true average treatment effects. For comparison to
+traditional OLS estimation of the event-study specification, Figure
+<a href="#fig:dynamic-w-twfe">3</a> plots point estimates from both methods. As
+pointed out by <span class="citation" data-cites="Sun_Abraham_2020">Sun
+and Abraham (<a href="#ref-Sun_Abraham_2020"
+role="doc-biblioref">2020</a>)</span>, treatment effect heterogeneity
+between groups biases the estimated pre-trends. In the figure below, the
+OLS estimates appear to show violations of pre-trends even though the
+data was simulated under parallel pre-trends.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>twfe</span> <span class='op'>=</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/feols.html'>feols</a></span><span class='op'>(</span><span class='va'>dep_var</span> <span class='op'>~</span> <span class='fu'><a href='https://lrberge.github.io/fixest/reference/i.html'>i</a></span><span class='op'>(</span><span class='va'>rel_year</span>, ref<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='cn'>Inf</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|</span> <span class='va'>unit</span> <span class='op'>+</span> <span class='va'>year</span>, data <span class='op'>=</span> <span class='va'>df_het</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='fu'>fixest</span><span class='fu'>::</span><span class='fu'><a href='https://lrberge.github.io/fixest/reference/coefplot.html'>iplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>es</span>, <span class='va'>twfe</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='fl'>0.2</span>, ref.line <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.5</span>,</span>
+<span>      col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue"</span>, <span class='st'>"#82b446"</span><span class='op'>)</span>, pt.pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>18</span><span class='op'>)</span>, </span>
+<span>      xlab <span class='op'>=</span> <span class='st'>"Relative time to treatment"</span>, </span>
+<span>      main <span class='op'>=</span> <span class='st'>"Event study: Staggered treatment (comparison)"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># True Effects</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>20</span>, <span class='va'>true_effects</span>, pch <span class='op'>=</span> <span class='fl'>20</span>, col <span class='op'>=</span> <span class='st'>"grey60"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Legend</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>-</span><span class='fl'>20</span>, y<span class='op'>=</span><span class='fl'>3</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"steelblue"</span>, <span class='st'>"#82b446"</span>, <span class='st'>"grey60"</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>18</span>, <span class='fl'>20</span><span class='op'>)</span>, </span>
+<span>       legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Two-stage estimate"</span>, <span class='st'>"TWFE"</span>, <span class='st'>"True Effect"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:dynamic-w-twfe"></span>
+<img src="did2s_files/figure-html5/dynamic-w-twfe-1.png" alt="The x-axis of this figure is the relative time to treatment, i.e. how many years pre-/post- treatment that period is. The y-axis is estimated treatment effects. There are three sets of points. The first is for the true effect which is equal to 0 in all pre-periods and in the post-period starts at 1.5 and linearly grows to 3 by post-period 20. The second set of points is the estimates from the two-stage difference-in-difference estimates which follows closely the true effects but with additional noise from estimation error. The third set of points is for the ordinary-least squares estimate of the two-way fixed effect model. They follow the true-effect less closely than the two-stage difference-in-differences estimate, but still somewhat close." width="100%" />
+<p class="caption">
+Figure 3: This figure adds the standard ordinary-least
+squares estimates to the true effect and the <code>did2s</code>
+estimates present in Figure 2. The x-axis of this figure is the relative
+time to treatment, i.e. how many years pre-/post- treatment that period
+is. The y-axis is estimated treatment effects. There are three sets of
+points. The first two sets of points are the same as in Figure 2. The
+third set of points is the ordinary-least squares estimates. These
+points exhibit show evidence of parallel pre-trends failing.
+</p>
+</div>
+</div>
+<h3 id="the-event_study-and-plot_event_study-command">The
+<code>event_study</code> and <code>plot_event_study</code> command</h3>
+<p>The command <code>event_study</code> presents a common syntax that
+estimates the event-study TWFE model for treatment-effect heterogeneity
+robust estimators recommended by the literature and returns all the
+estimates in a data.frame for easy plotting by the command
+<code>plot_event_study</code>. The general syntax is</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/did2s/man/event_study.html'>event_study</a></span><span class='op'>(</span></span>
+<span>  <span class='va'>data</span>, <span class='va'>yname</span>, <span class='va'>idname</span>, <span class='va'>tname</span>, <span class='va'>gname</span>, </span>
+<span>  <span class='va'>estimator</span>,</span>
+<span>  xformla <span class='op'>=</span> <span class='cn'>NULL</span>, horizon <span class='op'>=</span> <span class='cn'>NULL</span>, weights <span class='op'>=</span> <span class='cn'>NULL</span></span>
+<span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>The option <code>data</code> specifies the data set that contains the
+variables for the analysis. The four other required options are all
+names of variables: <code>yname</code> corresponds with the outcome
+variable of interest; <code>idname</code> is the variable corresponding
+to the (unique) unit identifier, <span class="math inline">\(i\)</span>;
+<code>tname</code> is the variable corresponding to the time period,
+<span class="math inline">\(t\)</span>; and <code>gname</code> is a
+variable indicating the period when treatment first starts (group
+status).</p>
+<div class="layout-chunk" data-layout="l-page">
+<div id="sfebvtldkw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#sfebvtldkw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 1000px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#sfebvtldkw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#sfebvtldkw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#sfebvtldkw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#sfebvtldkw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#sfebvtldkw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#sfebvtldkw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#sfebvtldkw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#sfebvtldkw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#sfebvtldkw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#sfebvtldkw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#sfebvtldkw .gt_row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#sfebvtldkw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sfebvtldkw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#sfebvtldkw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#sfebvtldkw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sfebvtldkw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#sfebvtldkw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sfebvtldkw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#sfebvtldkw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sfebvtldkw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sfebvtldkw .gt_sourcenote {
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sfebvtldkw .gt_left {
+  text-align: left;
+}
+
+#sfebvtldkw .gt_center {
+  text-align: center;
+}
+
+#sfebvtldkw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#sfebvtldkw .gt_font_normal {
+  font-weight: normal;
+}
+
+#sfebvtldkw .gt_font_bold {
+  font-weight: bold;
+}
+
+#sfebvtldkw .gt_font_italic {
+  font-style: italic;
+}
+
+#sfebvtldkw .gt_super {
+  font-size: 65%;
+}
+
+#sfebvtldkw .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#sfebvtldkw .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#sfebvtldkw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#sfebvtldkw .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#sfebvtldkw .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#sfebvtldkw .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <caption><span id="tab:estimators-html">Table 1: </span>Event Study Estimators</caption>
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Estimator and R package</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Comparison group</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Main Assumptions</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left"><div class='gt_from_md'><p>Gardner (2021) <br /> <code>{did2s}</code></p>
+</div></td>
+<td class="gt_row gt_left">Imputes \(Y(0)\)</td>
+<td class="gt_row gt_left">Not-yet- and/or Never-treated</td>
+<td class="gt_row gt_left"><div class='gt_from_md'><ul><li>Parallel Trends for all units</li><li>Limited anticipation<sup>*</sup></li><li>Correct specification of \(Y(0)\)</li></ul>
+</div></td></tr>
+    <tr><td class="gt_row gt_left"><div class='gt_from_md'><p>Borusyak, Jaravel, and Spiess (2021) <br /> <code>{didimputation}</code></p>
+</div></td>
+<td class="gt_row gt_left">Imputes \(Y(0)\)</td>
+<td class="gt_row gt_left">Not-yet- and/or Never-treated</td>
+<td class="gt_row gt_left"><div class='gt_from_md'><ul><li>Parallel Trends for all units</li><li>Limited anticipation<sup>*</sup></li><li>Correct specification of \(Y(0)\)</li></ul>
+</div></td></tr>
+    <tr><td class="gt_row gt_left"><div class='gt_from_md'><p>Callaway and Sant'Anna (2021) <br /> <code>{did}</code></p>
+</div></td>
+<td class="gt_row gt_left">2x2 Aggregation</td>
+<td class="gt_row gt_left">Either Not-yet- or Never-treated</td>
+<td class="gt_row gt_left"><div class='gt_from_md'><ul><li>Parallel Trends for Not-yet-treated <i>or</i> Never-treated</li><li>Limited anticipation<sup>*</sup></li></ul>
+</div></td></tr>
+    <tr><td class="gt_row gt_left"><div class='gt_from_md'><p>Sun and Abraham (2020) <br /> <code>{fixest/sunab}</code></p>
+</div></td>
+<td class="gt_row gt_left">2x2 Aggregation</td>
+<td class="gt_row gt_left">Not-yet- and/or Never-treated</td>
+<td class="gt_row gt_left"><div class='gt_from_md'><ul><li>Parallel Trends for all units</li><li>Limited anticipation<sup>*</sup></li></ul>
+</div></td></tr>
+    <tr><td class="gt_row gt_left"><div class='gt_from_md'><p>Roth and Sant'Anna (2021) <br /> <code>{staggered}</code></p>
+</div></td>
+<td class="gt_row gt_left">2x2 Aggregation</td>
+<td class="gt_row gt_left">Not-yet-treated</td>
+<td class="gt_row gt_left"><div class='gt_from_md'><ul><li>Treatment timing is random</li><li>Limited anticipation<sup>*</sup></ul>
+</div></td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="4">This table summarizes the differences between various proposed event-study estimators in the econometric literature. It highlights the two different strategies that different estimators use, namely imputation and 2x2 aggregation. Importantly, it tries to show the differences in assumptions for each different estimator.<br/><sup>*</sup> Anticipation can be accoufnted for by adjusting 'initial treatment day' back \(x\) periods, where \(x\) is the number of periods before treatment that anticipation can occur.</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+</div>
+<p>There are five main estimators available and the choice is specified
+for the <code>estimator</code> argument and are described in Table
+<a href="#tab:estimators-html">1</a>.<a href="#fn5" class="footnote-ref"
+id="fnref5" role="doc-noteref"><sup>5</sup></a> The following paragraphs
+will aim to highlight the differences and commonalities between
+estimators. These estimators fall into two broad categories. First, <a
+href="https://cran.r-project.org/package=did2s">did2s</a> and <a
+href="https://cran.r-project.org/package=didimputation">didimputation</a>
+<span class="citation" data-cites="didimputation">(<a
+href="#ref-didimputation" role="doc-biblioref">Butts 2021</a>)</span>
+are <code>imputation-based</code> estimators as described above. Both
+rely on “residualizing” the outcome variable <span
+class="math inline">\(\tilde{Y} = Y_{it} - \hat{\mu}_g -
+\hat{\eta}_t\)</span> and then averaging those <span
+class="math inline">\(\tilde{Y}\)</span> to estimate the event-study
+average treatment effect <span class="math inline">\(\tau^k\)</span>.
+These two estimators return identical point estimates for post-treatment
+effects, but differ in their asymptotic regime and hence their standard
+errors.</p>
+<p>The second type of estimator, which we label
+<code>2x2 aggregation</code>, takes a different approach for estimating
+event-study average treatment effects. The packages <a
+href="https://cran.r-project.org/package=did">did</a> <span
+class="citation" data-cites="did">(<a href="#ref-did"
+role="doc-biblioref">Callaway and Sant’Anna 2021</a>)</span>, <a
+href="https://cran.r-project.org/package=fixest">fixest</a> and <a
+href="https://cran.r-project.org/package=staggered">staggered</a> <span
+class="citation" data-cites="staggered">(<a href="#ref-staggered"
+role="doc-biblioref">Roth and Sant’Anna 2021</a>)</span> first estimate
+<span class="math inline">\(\tau_{gt}\)</span> for all group-time pairs.
+To estimate a particular <span class="math inline">\(\tau_{gt}\)</span>,
+they use a two-period (periods <span class="math inline">\(t\)</span>
+and <span class="math inline">\(g-1\)</span>) and two-group (group <span
+class="math inline">\(g\)</span> and a “control group”)
+difference-in-differences estimator, known as a <code>2x2</code>
+difference-in-differences. The particular “control group” they use will
+differ based on estimator and is discussed in the next paragraph. Then,
+the estimator manually aggregate <span
+class="math inline">\(\tau_{gt}\)</span> across all groups that were
+treated for (at least) <span class="math inline">\(k\)</span> periods to
+estimate the event-study average treatment effect <span
+class="math inline">\(\tau^k\)</span>.</p>
+<p>These estimators do not all rely on the same underlying assumptions,
+so the rest of the table summarizes the primary differences between
+estimators. The comparison group column describes which units are
+utilized as comparison groups in the estimator and hence will determine
+which units need to satisfy a parallel trends assumption. For example,
+in some circumstances, treated units will look very different from
+never-treated units. In this case, parallel trends may only hold between
+units that receieve treatment at some point and hence only these units
+should be used in estimation. In other cases, for example if treatment
+is assigned randomly, then it’s reasonable to assume that both not-yet-
+and never-treated units would all satisfy parallel trends.</p>
+<p>For estimators labeled “Not-yet- and/or never-treated”, the default
+is to use both not-yet- and never-treated units in the estimator.
+However, if all never-treated units are dropped from the data set before
+using the estimator, then these estimators will use only not-yet-treated
+groups as the comparison group. <a
+href="https://cran.r-project.org/package=did">did</a> provides an option
+to use either the not-yet- treated <em>or</em> the never- treated group
+as a comparison group depending on which group a researcher thinks will
+make a better comparison group. <a
+href="https://cran.r-project.org/package=staggered">staggered</a> will
+automatically drop units that are never treated from the sample and
+hence only use not-yet-treated groups as a comparison group.</p>
+<p>The next column, <code>Main Assumptions</code>, summarize concisely
+the main theoretical assumptions underlying each estimator. First, the
+assumptions about parallel trends match the previous discussion on the
+correct comparison group. The only estimator that doesn’t rely on a
+parallel trends assumption is <a
+href="https://cran.r-project.org/package=staggered">staggered</a> which
+relies on the assumption that <em>when</em> a unit receives treatment is
+random.</p>
+<p>The next assumption, that is common across all estimators, is that
+there should be “limited anticipation” of treatment. In general,
+anticipatory effects are when units respond to treatment before it is
+<em>actually</em> implemented. For example, this can be common if the
+news of a policy triggers behavior responses before the treatment is put
+in place. “Limited anticipation” is when these anticipatory effects can
+only exist in a “few” pre-periods.<a href="#fn6" class="footnote-ref"
+id="fnref6" role="doc-noteref"><sup>6</sup></a> In any of these cases,
+“treatment” should be manually moved back by the maximum number of
+periods where anticipation can occur. For example, if treatment starts
+in 2012 and anticipatory effects are reasonably only possible 2 years
+before, this units’ “group” should be labeled as 2010 in the data.</p>
+<p>The <code>imputation-based</code> estimators require an additional
+assumption that the parametric model of <span class="math inline">\(Y(0)
+= \mu_i + \eta_t + \varepsilon_{it}\)</span> is correctly specified.
+This is because in the first stage, you have to accurately impute <span
+class="math inline">\(Y(0)\)</span> when residualizing <span
+class="math inline">\(Y\)</span> which relies on the correct
+specification of <span class="math inline">\(Y(0)\)</span>. The
+<code>2x2 aggregation</code> models do not estimate a parametric form of
+<span class="math inline">\(Y(0)\)</span> and hence only relies on a
+parallel trends assumption. While not in the table, it is worth noting
+that <a href="https://cran.r-project.org/package=did">did</a> allows for
+uniform inference of estimates. This addresses the problem that multiple
+hypotheses tests are being done by researchers (e.g. checking
+individually if all post period estimates are significant) by creating
+standard errors that adjust for multiple testing.</p>
+<h4 id="example-usage-of-event_study">Example usage of
+<code>event_study</code></h4>
+<p>The result of <code>event_study</code> is a tibble in a
+<code>tidy</code> format <span class="citation" data-cites="broom">(<a
+href="#ref-broom" role="doc-biblioref">Robinson et al. 2021</a>)</span>
+that contains point estimates and standard errors for each relative time
+indicator for each estimator. The results of <code>event_study</code>
+are stored as a dataframe with event-study term, the estimate, standard
+error, and a column containing which estimator is used for that
+estimate. This output dataframe will in turn be passed to
+<code>plot_event_study</code> for easy comparison.
+<code>plot_event_study</code> will return a <code>ggplot</code> object
+<span class="citation" data-cites="ggplot2">(<a href="#ref-ggplot2"
+role="doc-biblioref">Wickham 2016</a>)</span>. We return to the
+<code>df_het</code> dataset to see example usage of these functions.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>df_het</span>, package <span class='op'>=</span> <span class='st'>"did2s"</span><span class='op'>)</span></span>
+<span><span class='va'>out</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/did2s/man/event_study.html'>event_study</a></span><span class='op'>(</span></span>
+<span>  data <span class='op'>=</span> <span class='va'>df_het</span>, yname <span class='op'>=</span> <span class='st'>"dep_var"</span>, idname <span class='op'>=</span> <span class='st'>"unit"</span>,</span>
+<span>  tname <span class='op'>=</span> <span class='st'>"year"</span>, gname <span class='op'>=</span> <span class='st'>"g"</span>, estimator <span class='op'>=</span> <span class='st'>"all"</span></span>
+<span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>   estimator  term   estimate  std.error
+      &lt;char&gt; &lt;num&gt;      &lt;num&gt;      &lt;num&gt;
+1:      TWFE   -20 0.04097725 0.07167704
+2:      TWFE   -19 0.13665695 0.07147683
+3:      TWFE   -18 0.14015820 0.07245520
+4:      TWFE   -17 0.15793252 0.07431871
+5:      TWFE   -16 0.09910002 0.07379570
+6:      TWFE   -15 0.20561127 0.07116478</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-page">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/did2s/man/event_study.html'>plot_event_study</a></span><span class='op'>(</span><span class='va'>out</span>, horizon <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<div class="figure"><span style="display:block;" id="fig:es-alternatives"></span>
+<img src="did2s_files/figure-html5/es-alternatives-1.png" alt="This figure contains six plots displayed in a grid of different event study estimators. The estimators are labeled 'TWFE', 'Borusyak, Jaravel, Spiess (2021)', 'Callaway and Sant'Anna (2020)', 'Gardner (2021)', 'Roth and Sant'Anna (2021)', and 'Sun and Abraham (2020)'. Each estimator's necessary assumptions are described above. Each plot in the figure displays point estimates from pre-treatment year -5 through post-treatment year 10. Each estimator is approximately 0 for all pre-treatment periods. In post-periods, each figure follows the true treatment effect starting at 1.5 in post-period 1 and growing afterwards." width="100%" />
+<p class="caption">
+Figure 4: This figure contains six plots displayed in a grid
+of different event study estimators. The estimators are labeled ‘TWFE’,
+‘Borusyak, Jaravel, Spiess (2021)’, ‘Callaway and Sant’Anna (2020)’,
+‘Gardner (2021)’, ‘Roth and Sant’Anna (2021)’, and ‘Sun and Abraham
+(2020)’. Each estimator’s necessary assumptions are described above.
+Each plot in the figure displays point estimates from pre-treatment year
+-5 through post-treatment year 10. Each estimator is approximately 0 for
+all pre-treatment periods. In post-periods, each figure follows the true
+treatment effect starting at 1.5 in post-period 1 and growing
+afterwards.
+</p>
+</div>
+</div>
+<h2 id="conclusion">Conclusion</h2>
+<p>This article introduced the package <a
+href="https://cran.r-project.org/package=did2s">did2s</a> which provides
+a fast, memory-efficient, and treatment-effect heterogeneity robust way
+to estimate two-way fixed-effect models. The package also includes the
+<code>event_study</code> and <code>plot_event_study</code> functions to
+allow for a single syntax for the various estimators introduced in the
+literature. A companion package in Stata is also available with similar
+syntax for the <code>did2s</code> function.</p>
+<p>While this package includes an event_study function that aims to help
+individuals implement any of the proposed modern “solutions” to the
+difference-in-differences estimation, further research on this topic is
+needed to help practitioners be able to more precisely determine which
+estimators work best in their settings. Potentially, there could be
+data-driven methods to try to identify the plausibility of the different
+assumptions. Additionally, there is still more work to be done to
+formalize under what conditions covariates can flexibly be used in
+estimation. There is some initial work from <span class="citation"
+data-cites="Caetano_Callaway_Payne_Rodrigues_2022">Caetano et al. (<a
+href="#ref-Caetano_Callaway_Payne_Rodrigues_2022"
+role="doc-biblioref">2022</a>)</span>, but there does not yet exist
+statistical software to perform their proposed estimator.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 class="appendix" id="supplementary-materials">Supplementary
+materials</h2>
+<p>Supplementary materials are available in addition to this article. It
+can be downloaded at <a href="did2s.zip">did2s.zip</a></p>
+<h2 class="appendix" id="cran-packages-used">CRAN packages used</h2>
+<p><a href="https://cran.r-project.org/package=did2s">did2s</a>, <a
+href="https://cran.r-project.org/package=fixest">fixest</a>, <a
+href="https://cran.r-project.org/package=didimputation">didimputation</a>,
+<a href="https://cran.r-project.org/package=did">did</a>, <a
+href="https://cran.r-project.org/package=staggered">staggered</a></p>
+<h2 class="appendix" id="cran-task-views-implied-by-cited-packages">CRAN
+Task Views implied by cited packages</h2>
+<p><a
+href="https://cran.r-project.org/view=CausalInference">CausalInference</a>,
+<a
+href="https://cran.r-project.org/view=Econometrics">Econometrics</a></p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-Berge_2018" class="csl-entry" role="doc-biblioentry">
+L. Bergé. Efficient estimation of maximum likelihood models with
+multiple fixed-effects: The <span>R</span> package <span>FENmlm</span>.
+<em>CREA Discussion Papers</em>, (13): 2018.
+</div>
+<div id="ref-Borusyak_Jaravel_Spiess_2021" class="csl-entry"
+role="doc-biblioentry">
+K. Borusyak, X. Jaravel and J. Spiess. Revisiting event study designs:
+Robust and efficient estimation. <em>Working paper</em>, 48 pages. 2021.
+</div>
+<div id="ref-didimputation" class="csl-entry" role="doc-biblioentry">
+K. Butts. <em>Didimputation: Difference-in-differences estimator from
+borusyak, jaravel, and spiess (2021).</em> 2021. URL <a
+href="https://www.github.com/kylebutts/didimputation">https://www.github.com/kylebutts/didimputation</a>.
+</div>
+<div id="ref-Caetano_Callaway_Payne_Rodrigues_2022" class="csl-entry"
+role="doc-biblioentry">
+C. Caetano, B. Callaway, S. Payne and H. S. Rodrigues. Difference in
+differences with time-varying covariates. <em>Working paper</em>. 2022.
+URL <a
+href="http://arxiv.org/abs/2202.02903">http://arxiv.org/abs/2202.02903</a>.
+</div>
+<div id="ref-did" class="csl-entry" role="doc-biblioentry">
+B. Callaway and P. H. C. Sant’Anna. <em>Did: Difference in
+differences.</em> 2021. URL <a
+href="https://bcallaway11.github.io/did/">https://bcallaway11.github.io/did/</a>.
+</div>
+<div id="ref-Callaway_SantAnna_2020" class="csl-entry"
+role="doc-biblioentry">
+B. Callaway and P. H. C. Sant’Anna. Difference-in-differences with
+multiple time periods. <em>Journal of Econometrics</em>, 2020. URL <a
+href="https://www.sciencedirect.com/science/article/pii/S0304407620303948">https://www.sciencedirect.com/science/article/pii/S0304407620303948</a>.
+Citation Key: CALLAWAY2020.
+</div>
+<div id="ref-deChaisemartin_DHaultfoeuille_2019" class="csl-entry"
+role="doc-biblioentry">
+C. de Chaisemartin and X. D’Haultfoeuille. <em>Two-way fixed effects
+estimators with heterogeneous treatment effects.</em> National Bureau of
+Economic Research, 2019. URL <a
+href="http://www.nber.org/papers/w25904.pdf">http://www.nber.org/papers/w25904.pdf</a>.
+</div>
+<div id="ref-Frisch_Waugh_1933" class="csl-entry"
+role="doc-biblioentry">
+R. Frisch and F. V. Waugh. Partial time regressions as compared with
+individual trends. <em>Econometrica</em>, 1(4): 387–401, 1933. URL <a
+href="http://www.jstor.org/stable/1907330">http://www.jstor.org/stable/1907330</a>.
+</div>
+<div id="ref-Gardner_2021" class="csl-entry" role="doc-biblioentry">
+J. Gardner. Two-stage differences in differences. 2022. URL <a
+href="https://arxiv.org/abs/2207.05943">https://arxiv.org/abs/2207.05943</a>.
+</div>
+<div id="ref-Goodman-Bacon_2018" class="csl-entry"
+role="doc-biblioentry">
+A. Goodman-Bacon. <em>Difference-in-differences with variation in
+treatment timing.</em> National Bureau of Economic Research, 2018. URL
+<a
+href="http://www.nber.org/papers/w25018.pdf">http://www.nber.org/papers/w25018.pdf</a>.
+</div>
+<div id="ref-newey_mcfadden_1994" class="csl-entry"
+role="doc-biblioentry">
+W. Newey and D. McFadden. Large sample estimation and hypothesis
+testing. In <em>Handbook of econometrics</em>, Eds R. F. Engle and D.
+McFadden 1st ed pages. 2111–2245 1986. Elsevier. URL <a
+href="https://EconPapers.repec.org/RePEc:eee:ecochp:4-36">https://EconPapers.repec.org/RePEc:eee:ecochp:4-36</a>.
+</div>
+<div id="ref-broom" class="csl-entry" role="doc-biblioentry">
+D. Robinson, A. Hayes and S. Couch. <em>Broom: Convert statistical
+objects into tidy tibbles.</em> 2021. URL <a
+href="https://CRAN.R-project.org/package=broom">https://CRAN.R-project.org/package=broom</a>.
+R package version 0.7.9.
+</div>
+<div id="ref-staggered" class="csl-entry" role="doc-biblioentry">
+J. Roth and P. H. C. Sant’Anna. <em>Staggered: Efficient estimation
+under staggered treatment timing.</em> 2021. URL <a
+href="https://github.com/jonathandroth/staggered">https://github.com/jonathandroth/staggered</a>.
+</div>
+<div id="ref-Sun_Abraham_2020" class="csl-entry" role="doc-biblioentry">
+L. Sun and S. Abraham. Estimating dynamic treatment effects in event
+studies with heterogeneous treatment effects. <em>Journal of
+Econometrics</em>, 2020. URL <a
+href="https://www.sciencedirect.com/science/article/pii/S030440762030378X">https://www.sciencedirect.com/science/article/pii/S030440762030378X</a>.
+</div>
+<div id="ref-ggplot2" class="csl-entry" role="doc-biblioentry">
+H. Wickham. <em>ggplot2: Elegant graphics for data analysis.</em>
+Springer-Verlag New York, 2016. URL <a
+href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In the literature, never treated units often are given a
+value of <span class="math inline">\(g = \infty\)</span>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is a minor abuse of notation since <span
+class="math inline">\(y_{igt} - \hat{\mu}_g - \hat{\eta}_t\)</span> is
+an estimate for <span class="math inline">\(\tau_{igt}\)</span> which
+can be different from <span class="math inline">\(\tau_{gt}\)</span> if
+there is within group-time heterogeneity.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>i.e., the average difference between treated and
+untreated potential outcomes <span
+class="math inline">\(y^1_{igt}\)</span> and <span
+class="math inline">\(y^0_{igt}\)</span>, conditional on the observed
+treatment-adoption times.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>i.e., the population-weighted average of the group-time
+specific ATTs, <span class="math inline">\(\tau_{gt}\)</span>.<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Except for Sun and Abraham, the <code>estimator</code>
+option is the package name. For Sun and Abraham, the
+<code>estimator</code> option is <code>sunab</code>. A value of “all”
+will estimate all 5 estimators.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>There should be more periods before treatment in the
+sample than whatever number a “few” is.<a href="#fnref6"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+<h3 id="citation">Citation</h3>
+<p>For attribution, please cite this work as</p>
+<pre class="citation-appendix short">Butts &amp; Gardner, "did2s: Two-Stage Difference-in-Differences", The R Journal, 2022</pre>
+<p>BibTeX citation</p>
+<pre class="citation-appendix long">@article{did2s,
+  author = {Butts, Kyle and Gardner, John},
+  title = {did2s: Two-Stage Difference-in-Differences},
+  journal = {The R Journal},
+  year = {2022},
+  note = {https://doi.org/10.32614/did2s},
+  doi = {10.32614/did2s},
+  issn = {2073-4859},
+  pages = {1}
+}</pre>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
